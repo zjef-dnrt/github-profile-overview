@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+}
+
+@layer components {
+  .button--dark {
+    @apply w-full rounded bg-gray-700 scale-100 hover:bg-gray-500 hover:scale-105 p-2 text-sm text-white shadow-sm transition-all;
+  }
+}
