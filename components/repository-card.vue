@@ -26,8 +26,9 @@
       <h5 class="text-gray-900 text-xl font-medium mb-2">{{ repo.name }}</h5>
       <p
         class="
-          text-gray-700
           mb-2
+          text-sm
+          text-gray-600
           appear-upward
           overflow-hidden
         "
@@ -78,6 +79,6 @@ export default Vue.extend({
   transition: all .5s
 }
 .hover-container:hover .appear-upward {
-  max-height: 10rem;
+  max-height: 13rem;
 }
 </style>
