@@ -18,6 +18,6 @@
 
 @layer components {
   .button--dark {
-    @apply w-full rounded bg-gray-700 hover:bg-gray-500 p-2 text-sm text-white shadow-sm transition-all;
+    @apply w-full h-10 rounded bg-gray-700 hover:bg-gray-500 p-2 text-sm text-white shadow-sm transition-all;
   }
 }
