@@ -1,10 +1,12 @@
 <template>
   <div class="min-h-screen bg-gray-200">
-    <header class="h-16 bg-gray-50 flex px-5 items-center border-b-2 border-gray-400">
-      <h1 class="text-gray-800">Github profile overview</h1>
-    </header>
-    <main class="h-full w-auto">
-      <Nuxt />
-    </main>
-  </div>
+      <header
+        class="h-16 bg-gray-50 flex px-5 items-center border-b-2 border-gray-400"
+      >
+        <h1 class="laptop:mx-auto laptop:w-10/12 desktop:w-8/12 text-gray-800">Github profile overview</h1>
+      </header>
+      <main class="h-full laptop:w-10/12 desktop:w-8/12 laptop:mx-auto">
+        <Nuxt />
+      </main>
+    </div>
 </template>
