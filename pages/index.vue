@@ -1,7 +1,7 @@
 <template>
   <div>
-    <section class="px-5 py-8 bg-gray-300 shadow-md rounded-b-md">
-      <h3 class="mb-2">Git profile name</h3>
+    <section class="px-5 py-8 mt-3 glass-effect shadow-md rounded-md">
+      <h3 class="mb-2 text-gray-200 uppercase tracking-widest">Git profile name</h3>
       <div class="laptop:flex">
         <input
           ref="focusInput"
@@ -93,3 +93,10 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.glass-effect {
+   background-color: rgba(255, 255, 255, 0.24);
+   border: 1px solid rgba(255, 255, 255, 0.125);
+}
+</style>
