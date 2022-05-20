@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-96 max-h-96 flex flex-col justify-between cursor-pointer transition-all duration-300 rounded-lg shadow-sm hover:shadow-xl bg-white max-w-sm hover-container"
+    class="w-full h-96 max-h-96 flex flex-col justify-between cursor-pointer transition-all duration-300 rounded-lg shadow-xl bg-white max-w-sm hover-container"
   >
     <img
       class="rounded-t-lg transition-all duration-300"
