@@ -12,6 +12,7 @@
         <loading-button 
           content="Show public repositories"
           :loading="isLoading"
+          :disabled="!profileName"
           @click="profileName && fetchRepos(profileName)"
           @enter="profileName && fetchRepos(profileName)"
         />
@@ -46,7 +47,7 @@ export default Vue.extend({
   components: { RepositoryCardSkeleton },
   data() {
     return {
-      profileName: 'tjeef',
+      profileName: '',
     }
   },
   computed: {

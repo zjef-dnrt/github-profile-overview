@@ -1,6 +1,8 @@
 <template>
   <button
-    class="button--light flex justify-center items-center laptop:ml-4 laptop:w-72"
+  type="button"
+    class="button--light flex justify-center items-center laptop:ml-4 laptop:w-72 disabled:opacity-25 sisabled:pointer-events-none"
+    :class="{ 'cursor-not-allowed': disabled }"
     @click="$emit('click')"
     @keyup.enter="$emit('enter')"
   >
@@ -27,6 +29,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
 })
 </script>
