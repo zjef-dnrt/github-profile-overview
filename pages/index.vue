@@ -1,7 +1,9 @@
 <template>
   <div>
     <section class="px-5 py-8 mt-3 glass-effect shadow-md rounded-md">
-      <h3 class="mb-2 text-gray-200 uppercase tracking-widest">Git profile name</h3>
+      <h3 class="mb-2 text-gray-200 uppercase tracking-widest">
+        Git profile name
+      </h3>
       <div class="laptop:flex">
         <input
           ref="focusInput"
@@ -20,7 +22,6 @@
       </div>
     </section>
     <section class="pt-7 p-5 pb-20">
-
       <!-- [STATE] Loading -->
       <div v-if="isLoading" class="main-repos-grid">
         <repository-card-skeleton />
@@ -30,7 +31,7 @@
 
       <!-- [STATE] Repos fetched successful -->
       <div v-else-if="hasRepositories">
-        <h2 v-if="repoOwnerName" class="mb-7">{{ repoOwnerName }}</h2>
+        <h2 v-if="repoOwnerName" class="mb-7 text-gray-200">{{ repoOwnerName }}</h2>
         <div class="main-repos-grid">
           <RepositoryCard
             v-for="repo in repositories"
@@ -45,8 +46,21 @@
         This user seems to have no repositories
       </div>
 
-      <!-- [STATE] Repos fetch failed -->
+      <!-- [STATE] Default or Repos fetch failed -->
       <div v-else>
+        <div v-if="errorMessage">
+          {{ errorMessage }}
+        </div>
+        <div v-else class="flex flex-col justify-center items-center">
+          <img
+            src="../assets/github-logo.png"
+            class="w-40 ml-5"
+            alt="Github logo"
+          />
+          <p class="text-center text-2xl mt-8 text-gray-200">
+            Enter a profile name and checkout the public repositories!
+          </p>
+        </div>
         {{ errorOrEmptyPlaceholder }}
       </div>
     </section>
@@ -65,6 +79,8 @@ export default Vue.extend({
   data() {
     return {
       profileName: '',
+      initialMessage:
+        'Enter a Github profile name above and request the repositories',
     }
   },
   computed: {
@@ -79,11 +95,6 @@ export default Vue.extend({
       const ownerName = this.repositories?.[0]?.owner.login
       return ownerName ? `${ownerName}'s repositories` : ''
     },
-    errorOrEmptyPlaceholder() {
-      return this.errorMessage
-        ? this.errorMessage
-        : 'Enter a Github profile name above and request the repositories'
-    },
   },
   mounted() {
     this.$refs.focusInput.focus()
@@ -96,7 +107,7 @@ export default Vue.extend({
 
 <style scoped>
 .glass-effect {
-   background-color: rgba(255, 255, 255, 0.24);
-   border: 1px solid rgba(255, 255, 255, 0.125);
+  background-color: rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.125);
 }
 </style>
