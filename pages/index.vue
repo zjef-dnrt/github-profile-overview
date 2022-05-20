@@ -11,17 +11,23 @@
         />
         <button
           class="button--dark laptop:ml-4 laptop:w-72"
-          @click="fetchRepos"
-          @keyup.enter="fetchRepos"
+          @click="profileName && fetchRepos(profileName)"
+          @keyup.enter="profileName && fetchRepos(profileName)"
         >
           Show public repositories
         </button>
       </div>
     </section>
-    <section class="pt-7 p-5">
+    <section v-if="repositories" class="pt-7 p-5">
       <h2 v-if="repoOwnerName" class="mb-7">{{ repoOwnerName }}</h2>
-      <div class="grid place-items-center grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-5">
-        <RepositoryCard v-for="repo in repositories" :key="repo.id" :repo="repo"/>
+      <div
+        class="grid place-items-center grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-5"
+      >
+        <RepositoryCard
+          v-for="repo in repositories"
+          :key="repo.id"
+          :repo="repo"
+        />
       </div>
     </section>
   </div>
@@ -29,8 +35,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import dummyRepos from '../static/data/dummy_repositories.json';
-import RepositoryCard from '~/components/repository-card.vue';
+// import dummyRepos from '../static/data/dummy_repositories.json';
+import { mapActions, mapState } from 'pinia'
+import RepositoryCard from '~/components/repository-card.vue'
+import { useRepos } from '~/store/repositories'
 
 export default Vue.extend({
   name: 'HomePage',
@@ -38,23 +46,17 @@ export default Vue.extend({
   data() {
     return {
       profileName: '',
-      repositories: [],
     }
   },
   computed: {
+    ...mapState(useRepos, ['repositories']),
     repoOwnerName() {
-      const ownerName = this.repositories[0]?.owner.login;
-      return ownerName ? `${ownerName}'s repositories` : "";
-    }
-  },
-  mounted () {
-    this.repositories = dummyRepos;
+      const ownerName = this.repositories[0]?.owner.login
+      return ownerName ? `${ownerName}'s repositories` : ''
+    },
   },
   methods: {
-    fetchRepos() {
-      console.log(this.profileName)
-      // TODO DISPATCH STORE ACTION TO FETCH REPOS FOR USER
-    },
+    ...mapActions(useRepos, ['fetchRepos']),
   },
 })
 </script>
