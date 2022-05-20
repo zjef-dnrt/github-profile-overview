@@ -9,20 +9,22 @@
           placeholder="e.g. TheAwesomeDev"
           class="w-full p-2 rounded shadow-sm mb-2 laptop:mb-0"
         />
-        <button
-          class="button--dark laptop:ml-4 laptop:w-72"
+        <loading-button 
+          content="Show public repositories"
+          :loading="isLoading"
           @click="profileName && fetchRepos(profileName)"
-          @keyup.enter="profileName && fetchRepos(profileName)"
-        >
-          Show public repositories
-        </button>
+          @enter="profileName && fetchRepos(profileName)"
+        />
       </div>
     </section>
-    <section v-if="repositories" class="pt-7 p-5">
+    <section class="pt-7 p-5 pb-20">
       <h2 v-if="repoOwnerName" class="mb-7">{{ repoOwnerName }}</h2>
-      <div
-        class="grid place-items-center grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-5"
-      >
+      <div v-if="isLoading" class="main-repos-grid">
+        <repository-card-skeleton />
+        <repository-card-skeleton />
+        <repository-card-skeleton />
+      </div>
+      <div v-else class="main-repos-grid">
         <RepositoryCard
           v-for="repo in repositories"
           :key="repo.id"
@@ -35,23 +37,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// import dummyRepos from '../static/data/dummy_repositories.json';
 import { mapActions, mapState } from 'pinia'
-import RepositoryCard from '~/components/repository-card.vue'
 import { useRepos } from '~/store/repositories'
+import RepositoryCardSkeleton from '~/components/repository-card-skeleton.vue'
 
 export default Vue.extend({
   name: 'HomePage',
-  components: { RepositoryCard },
+  components: { RepositoryCardSkeleton },
   data() {
     return {
-      profileName: '',
+      profileName: 'tjeef',
     }
   },
   computed: {
-    ...mapState(useRepos, ['repositories']),
+    ...mapState(useRepos, ['repositories', 'isLoading']),
     repoOwnerName() {
-      const ownerName = this.repositories[0]?.owner.login
+      const ownerName = this.repositories?.[0]?.owner.login
       return ownerName ? `${ownerName}'s repositories` : ''
     },
   },

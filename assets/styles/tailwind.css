@@ -17,7 +17,11 @@
 }
 
 @layer components {
-  .button--dark {
+  .button--light {
     @apply w-full h-10 rounded bg-gray-700 hover:bg-gray-500 p-2 text-sm text-white shadow-sm transition-all;
+  }
+
+  .main-repos-grid {
+    @apply grid place-items-center grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-5;
   }
 }

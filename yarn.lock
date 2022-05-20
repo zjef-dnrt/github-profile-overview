@@ -10358,6 +10358,11 @@ sisteransi@^1.0.5:
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
+skeleton-loader-vue@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/skeleton-loader-vue/-/skeleton-loader-vue-1.0.10.tgz#bbbc3d10330e7fc1e44ef0ed1324d7e16e3a4ec4"
+  integrity sha512-71WVaMrXxpzZp1NY1U+DEXi1EbMJ7PdUDW2aiCXKrP0a0IZBMfLX2Nxq9hQXK7M8YHweTMlCRTDYScH/B3/7nQ==
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
