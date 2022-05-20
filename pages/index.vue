@@ -20,11 +20,15 @@
       </div>
     </section>
     <section class="pt-7 p-5 pb-20">
+
+      <!-- [STATE] Loading -->
       <div v-if="isLoading" class="main-repos-grid">
         <repository-card-skeleton />
         <repository-card-skeleton />
         <repository-card-skeleton />
       </div>
+
+      <!-- [STATE] Repos fetched successful -->
       <div v-else-if="hasRepositories">
         <h2 v-if="repoOwnerName" class="mb-7">{{ repoOwnerName }}</h2>
         <div class="main-repos-grid">
@@ -35,9 +39,13 @@
           />
         </div>
       </div>
+
+      <!-- [STATE] Repos fetched successfull, user has no repos -->
       <div v-else-if="repositoriesLoaded">
         This user seems to have no repositories
       </div>
+
+      <!-- [STATE] Repos fetch failed -->
       <div v-else>
         {{ errorOrEmptyPlaceholder }}
       </div>
