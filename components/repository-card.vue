@@ -12,11 +12,11 @@
       <p class="mb-2 text-sm text-gray-600 appear-upward overflow-hidden">
         {{ repo.description }}
       </p>
-      <div class="flex">
+      <div class="flex flex-wrap">
         <span
-          v-for="topic in ['test', 'haha']"
+          v-for="topic in repo.topics"
           :key="`${repo.name}-${topic}`"
-          class="px-4 py-1 mr-1 rounded-full text-gray-500 bg-gray-300 font-semibold text-xs flex align-center"
+          class="px-4 py-1 mr-1 mb-1 min-w-max rounded-full text-gray-500 bg-gray-300 font-semibold text-xs flex align-center"
           >{{ topic }}</span
         >
       </div>
@@ -42,7 +42,7 @@ export default Vue.extend({
 <style scoped>
 .appear-upward {
   max-height: 0;
-  transition: all 0.5s;
+  transition: all 300ms;
 }
 .hover-container:hover .appear-upward {
   /* Has to be static value, dynamic value like "auto" doens't trigger the transistion */
