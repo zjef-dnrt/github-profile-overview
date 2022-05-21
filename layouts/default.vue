@@ -1,12 +1,13 @@
 <template>
   <div class="min-h-screen gradient-background">
-    <header
+    <NuxtLink
+      to="/"
       class="h-16 bg-gray-700 flex px-5 items-center border-b-4 border-gray-500"
     >
       <h1 class="laptop:mx-auto laptop:w-10/12 desktop:w-8/12 text-gray-200">
         Github profile overview
       </h1>
-    </header>
+    </NuxtLink>
     <main class="h-full laptop:w-10/12 desktop:w-8/12 laptop:mx-auto">
       <Nuxt />
     </main>
