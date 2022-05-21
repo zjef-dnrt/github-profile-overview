@@ -1,5 +1,5 @@
 <template>
-  <div
+  <NuxtLink
     class="
       w-full
       h-96
@@ -15,6 +15,10 @@
       max-w-sm
       hover-container
     "
+    :to="{
+      name: 'repository-name',
+      params: { name: repo.name, fullName: repo.full_name },
+    }"
   >
     <div id="repo-stars" :data-stars="repo.stargazers_count">
       <img src="../assets/star.svg" alt="Star" />
@@ -51,7 +55,7 @@
         >
       </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script lang="ts">
