@@ -42,7 +42,7 @@ export default Vue.extend({
     ...mapState(useRepos, ['isLoading']),
   },
   mounted() {
-    this.$refs.focusInput.focus()
+    this.$refs.focusInput?.focus()
   },
   methods: {
     ...mapActions(useRepos, ['fetchRepos']),
