@@ -20,9 +20,7 @@
       params: { name: repo.name, fullName: repo.full_name },
     }"
   >
-    <div id="repo-stars" :data-stars="repo.stargazers_count">
-      <img src="../assets/star.svg" alt="Star" />
-    </div>
+    <StarsDisplay :stars="repo.stargazers_count" />
     <img
       class="rounded-t-lg transition-all duration-300"
       src="../assets/github_logo.svg"
@@ -80,26 +78,6 @@ export default Vue.extend({
 }
 .hover-container {
   position: relative;
-
-  #repo-stars {
-    position: absolute;
-    display: grid;
-    place-items: center;
-    z-index: 1;
-    top: 1rem;
-    right: 1rem;
-
-    & img {
-      width: 1rem;
-      display: inline-block;
-    }
-
-    &::after {
-      content: attr(data-stars);
-      color: #ed8a19;
-      font-size: 10px;
-    }
-  }
 
   &:hover .appear-upward {
     /* Has to be static value, dynamic value like "auto" doens't trigger the transistion */
