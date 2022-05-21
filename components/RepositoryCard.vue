@@ -20,6 +20,7 @@
       params: { name: repo.name, fullName: repo.full_name },
     }"
   >
+    <img v-if="repo.fork" id="fork" src="../assets/git-fork.svg" alt="Fork icon" title="Forked repository">
     <StarsDisplay :stars="repo.stargazers_count" />
     <img
       class="rounded-t-lg transition-all duration-300"
@@ -78,6 +79,12 @@ export default Vue.extend({
 }
 .hover-container {
   position: relative;
+
+  & #fork {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
 
   &:hover .appear-upward {
     /* Has to be static value, dynamic value like "auto" doens't trigger the transistion */
