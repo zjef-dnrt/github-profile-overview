@@ -44,12 +44,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    [
-      'nuxt-buefy',
-      {
-        css: false
-      },
-    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
