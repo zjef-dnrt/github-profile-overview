@@ -1,7 +1,24 @@
 <template>
   <div
-    class="w-full h-96 max-h-96 flex flex-col justify-between cursor-pointer transition-all duration-300 rounded-lg shadow-xl bg-white max-w-sm hover-container"
+    class="
+      w-full
+      h-96
+      max-h-96
+      flex flex-col
+      justify-between
+      cursor-pointer
+      transition-all
+      duration-300
+      rounded-lg
+      shadow-xl
+      bg-white
+      max-w-sm
+      hover-container
+    "
   >
+    <div id="repo-stars" :data-stars="repo.stargazers_count">
+      <img src="../assets/star.svg" alt="Star" />
+    </div>
     <img
       class="rounded-t-lg transition-all duration-300"
       src="../assets/github_logo.svg"
@@ -16,7 +33,20 @@
         <span
           v-for="topic in repo.topics"
           :key="`${repo.name}-${topic}`"
-          class="px-4 py-1 mr-1 mb-1 min-w-max rounded-full text-gray-500 bg-gray-300 font-semibold text-xs flex align-center"
+          class="
+            px-4
+            py-1
+            mr-1
+            mb-1
+            min-w-max
+            rounded-full
+            text-gray-500
+            bg-gray-300
+            font-semibold
+            text-xs
+            flex
+            align-center
+          "
           >{{ topic }}</span
         >
       </div>
@@ -39,13 +69,37 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .appear-upward {
   max-height: 0;
   transition: all 300ms;
 }
-.hover-container:hover .appear-upward {
-  /* Has to be static value, dynamic value like "auto" doens't trigger the transistion */
-  max-height: 13rem;
+.hover-container {
+  position: relative;
+
+  #repo-stars {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+    top: 1rem;
+    right: 1rem;
+
+    & img {
+      width: 1rem;
+      display: inline-block;
+    }
+
+    &::after {
+      content: attr(data-stars);
+      color: #ed8a19;
+      font-size: 10px;
+    }
+  }
+
+  &:hover .appear-upward {
+    /* Has to be static value, dynamic value like "auto" doens't trigger the transistion */
+    max-height: 13rem;
+  }
 }
 </style>
