@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+}
+
+@layer components {
+  .button--light {
+    @apply w-full h-10 rounded bg-gray-700 hover:bg-gray-500 p-2 text-sm text-white shadow-sm transition-all;
+  }
+
+  .main-repos-grid {
+    @apply grid place-items-center grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-5;
+  }
+
+  .glass-effect {
+    background-color: rgba(255, 255, 255, 0.24);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+  }
+}
