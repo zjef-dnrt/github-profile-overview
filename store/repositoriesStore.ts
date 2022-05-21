@@ -28,7 +28,7 @@ export const useRepos = defineStore('repos', {
       } catch (error: any) {
         this.repositoriesLoaded = false
 
-        const isNotFoundError = error.response.status === 404
+        const isNotFoundError = error.response?.status === 404
         this.errorMessage = isNotFoundError
           ? 'User not found'
           : 'Something went wrong'

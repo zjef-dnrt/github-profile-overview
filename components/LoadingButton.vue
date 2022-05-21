@@ -3,8 +3,8 @@
   type="button"
     class="button--light flex justify-center items-center laptop:ml-4 laptop:w-72 disabled:opacity-25 sisabled:pointer-events-none"
     :class="{ 'cursor-not-allowed': disabled }"
-    @click="$emit('click')"
-    @keyup.enter="$emit('enter')"
+    @click="!disabled && $emit('click')"
+    @keyup.enter="!disabled && $emit('enter')"
   >
     <div v-if="loading" class="scaling-dots">
       <div></div>
@@ -20,6 +20,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  name: 'LoadingButton',
   props: {
     content: {
       type: String,
