@@ -49,10 +49,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style scoped>
-.glass-effect {
-  background-color: rgba(255, 255, 255, 0.24);
-  border: 1px solid rgba(255, 255, 255, 0.125);
-}
-</style>
