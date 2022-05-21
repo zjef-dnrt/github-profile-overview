@@ -1,14 +1,10 @@
 <template>
-  <div>
+  <div class="my-4 glass-effect rounded-md px-5 py-8">
     <p v-if="$fetchState.pending">Loading commits...</p>
     <p v-else-if="$fetchState.error">An error occurred :(</p>
     <div v-else>
-      <h1>{{ fullName }}</h1>
-      <ul>
-        <li v-for="commitInfo of commits" :key="commitInfo.sha">
-          {{ commitInfo.commit.message }}
-        </li>
-      </ul>
+      <h1 class="text-gray-200 tracking-wide">{{ fullName }}</h1>
+      <VerticalCommitsTimeline :commits="commits" />
       <button @click="$fetch">Refresh</button>
     </div>
   </div>
