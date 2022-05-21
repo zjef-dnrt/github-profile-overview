@@ -42,7 +42,8 @@ export default Vue.extend({
     ...mapState(useRepos, ['isLoading']),
   },
   mounted() {
-    this.$refs.focusInput?.focus()
+    const focusInput = this.$refs.focusInput as HTMLElement | null;
+    focusInput?.focus()
   },
   methods: {
     ...mapActions(useRepos, ['fetchRepos']),
