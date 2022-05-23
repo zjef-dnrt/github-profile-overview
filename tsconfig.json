@@ -29,7 +29,6 @@
       "@types/node",
       "@pinia/nuxt",
       "@types/jest",
-      "buefy/types"
     ]
   },
   "exclude": [

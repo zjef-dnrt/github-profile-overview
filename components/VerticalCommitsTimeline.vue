@@ -72,7 +72,7 @@ import { Author, CommitInfo } from '~/types/commitInfo'
 export default Vue.extend({
   props: {
     commits: {
-      type: () => Object as CommitInfo[],
+      type: () => Object as unknown as CommitInfo[],
       required: true,
     },
   },

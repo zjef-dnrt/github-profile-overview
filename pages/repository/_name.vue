@@ -12,10 +12,10 @@
 
 <script lang="ts">
 import { mapWritableState } from 'pinia'
-import Vue from 'vue'
+import { defineComponent } from 'vue-demi'
 import { useCommitsStore } from '~/store/commitsStore'
 
-export default Vue.extend({
+export default defineComponent({
   asyncData({ params: { fullName } }) {
     return { fullName }
   },
@@ -46,7 +46,7 @@ export default Vue.extend({
       this.pageNumber += 1
       this.fetchCommits(this.pageNumber)
     },
-    async fetchCommits(page: Number = 1) {
+    async fetchCommits(page: Number = 1): Promise<void> {
       const { data } = await this.$reposAPI.get(`${this.fullName}/commits`, {
         params: {
           per_page: 20,
