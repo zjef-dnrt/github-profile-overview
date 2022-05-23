@@ -4,8 +4,7 @@ _Dit project is in opdracht van Appeel.io_
 ## Netifly Site
 De applicatie wordt gehost op Netifly,
 
-[Bekijk het project hier](https://sunny-pie-6b6079.netlify.app/)
-
+[Bekijk het project hier](https://git-profile-overview.netlify.app/)
 
 
 ## Nuxt Build Instructions
