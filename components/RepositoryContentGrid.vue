@@ -23,26 +23,31 @@
 
     <!-- [STATE] Repos fetched successfull, user has no repos -->
     <div v-else-if="repositoriesLoaded">
-      This user seems to have no repositories
+      <StateContentPlaceholder
+        asset="empty-box.svg"
+        label="This Github profile doesn't seem to have public repositories... Maybe check the spelling or try another one!"
+      />
     </div>
 
     <!-- [STATE] Default or Repos fetch failed -->
     <div v-else>
       <!-- Fetch failed -->
       <div v-if="errorMessage">
-        {{ errorMessage }}
+        <StateContentPlaceholder
+          asset="cloud-error.svg"
+          label="Oops! Something went wrong while requesting the repositories, try again!"
+        />
+        <p class="text-white italic w-full text-center">
+          ( Server response: {{ errorMessage }} )
+        </p>
       </div>
 
       <!-- Default state -->
       <div v-else class="flex flex-col justify-center items-center">
-        <img
-          src="../assets/github-logo.png"
-          class="w-40 ml-5"
-          alt="Github logo"
+        <StateContentPlaceholder
+          asset="github-logo-blue.png"
+          label="Enter a profile name and checkout the public repositories!"
         />
-        <p class="text-center text-2xl mt-8 text-gray-200">
-          Enter a profile name and checkout the public repositories!
-        </p>
       </div>
     </div>
   </section>
@@ -70,7 +75,7 @@ export default Vue.extend({
       'hasRepositories',
       'isLoading',
     ]),
-    repoOwnerName() {
+    repoOwnerName(): String {
       const ownerName = this.repositories?.[0]?.owner.login
       return ownerName ? `${ownerName}'s repositories` : ''
     },

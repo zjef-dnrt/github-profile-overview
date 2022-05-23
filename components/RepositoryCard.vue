@@ -10,9 +10,11 @@
       transition-all
       duration-300
       rounded-lg
-      shadow-xl
+      shadow-sm
       bg-white
-      max-w-sm
+      transform
+      hover:shadow-lg
+      hover:-translate-y-1
       hover-container
     "
     :to="{
@@ -24,7 +26,7 @@
     <StarsDisplay :stars="repo.stargazers_count" />
     <img
       class="rounded-t-lg transition-all duration-300"
-      src="../assets/github_logo.svg"
+      src="../assets/github-repo-logo.svg"
       alt="Github repository logo"
     />
     <div class="p-6 flex flex-col">

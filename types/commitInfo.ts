@@ -1,10 +1,10 @@
-interface Author {
+interface AuthorCredentials {
   name: string
   email: string
   date: Date
 }
 
-interface Committer {
+interface CommitterCredentials {
   name: string
   email: string
   date: Date
@@ -23,8 +23,8 @@ interface Verification {
 }
 
 interface Commit {
-  author: Author
-  committer: Committer
+  author: AuthorCredentials
+  committer: CommitterCredentials
   message: string
   tree: Tree
   url: string
@@ -32,7 +32,7 @@ interface Commit {
   verification: Verification
 }
 
-interface Author2 {
+export interface Author {
   login: string
   id: number
   node_id: string
@@ -53,7 +53,7 @@ interface Author2 {
   site_admin: boolean
 }
 
-interface Committer2 {
+interface Committer {
   login: string
   id: number
   node_id: string
@@ -87,7 +87,7 @@ export interface CommitInfo {
   url: string
   html_url: string
   comments_url: string
-  author: Author2
-  committer: Committer2
+  author: Author | null
+  committer: Committer | null
   parents: Parent[]
 }

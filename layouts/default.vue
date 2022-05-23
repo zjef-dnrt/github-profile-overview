@@ -8,7 +8,7 @@
         Github profile overview
       </h1>
     </NuxtLink>
-    <main class="h-full laptop:w-10/12 desktop:w-8/12 laptop:mx-auto">
+    <main class="h-full pb-8 laptop:w-10/12 desktop:w-8/12 laptop:mx-auto">
       <Nuxt />
     </main>
   </div>
