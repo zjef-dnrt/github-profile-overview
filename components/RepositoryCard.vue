@@ -10,9 +10,11 @@
       transition-all
       duration-300
       rounded-lg
-      shadow-xl
+      shadow-sm
       bg-white
-      max-w-sm
+      transform
+      hover:shadow-lg
+      hover:-translate-y-1
       hover-container
     "
     :to="{
