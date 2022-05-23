@@ -1,5 +1,5 @@
 <template>
-  <ol class="relative ml-7 mt-7 border-l border-gray-200 dark:border-gray-700">
+  <ol class="relative ml-7 mt-7 border-l border-gray-200 dark:border-gray-700 transition-all duration-1000">
     <li v-for="commitInfo in commits" :key="commitInfo.sha" class="mb-7 ml-4">
       <div
         class="
@@ -20,7 +20,7 @@
       <div class="mt-2 mb-3 flex items-center">
         <img
           class="mr-3 w-12 h-12 rounded-full"
-          :src="commitInfo.author.avatar_url"
+          :src="getAvatarUrl(commitInfo.author)"
           alt="Github profile avatar"
         />
         <h3 class="text-lg font-semibold text-gray-700">
@@ -67,14 +67,19 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { CommitInfo } from '~/types/commitInfo'
+import { Author, CommitInfo } from '~/types/commitInfo'
 
 export default Vue.extend({
   props: {
     commits: {
-      type: () => [] as CommitInfo[],
+      type: () => Object as () => CommitInfo[],
       required: true,
     },
+  },
+  methods: {
+    getAvatarUrl(author: Author | null) {
+      return author ? author.avatar_url : require('../assets/github-logo-blue.png')
+    }
   },
 })
 </script>
