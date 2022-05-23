@@ -10,6 +10,7 @@
         type="text"
         placeholder="e.g. TheAwesomeDev"
         class="w-full p-2 rounded shadow-sm mb-2 laptop:mb-0"
+        @keyup.enter="profileName && fetchRepos(profileName)"
       />
       <LoadingButton
         content="Show public repositories"
