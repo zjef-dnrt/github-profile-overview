@@ -36,7 +36,7 @@
       <!-- Default state -->
       <div v-else class="flex flex-col justify-center items-center">
         <img
-          src="../assets/github-logo.png"
+          src="../assets/github-logo-blue.png"
           class="w-40 ml-5"
           alt="Github logo"
         />
