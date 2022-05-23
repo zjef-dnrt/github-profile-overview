@@ -35,7 +35,7 @@
       <div v-if="errorMessage">
         <StateContentPlaceholder
           asset="cloud-error.svg"
-          :label="errorLabel"
+          label="Oops! Something went wrong while requesting the repositories, try again!"
         />
         <p class="text-white italic w-full text-center">
           ( Server response: {{ errorMessage }} )
@@ -75,14 +75,10 @@ export default Vue.extend({
       'hasRepositories',
       'isLoading',
     ]),
-    repoOwnerName() {
+    repoOwnerName(): String {
       const ownerName = this.repositories?.[0]?.owner.login
       return ownerName ? `${ownerName}'s repositories` : ''
     },
-    errorLabel() {
-      const repoOwnerAddition = repoOwnerName ? ` for ${repoOwnerName}` : '';
-      return `Oops! Something went wrong while requesting the repositories${repoOwnerAddition}, try again!`
-    }
   },
 })
 </script>
