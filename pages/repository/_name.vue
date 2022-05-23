@@ -1,9 +1,9 @@
 <template>
   <div class="my-4 glass-effect rounded-md px-5 py-8">
-    <p v-if="$fetchState.pending">Loading commits...</p>
+    <CommitsSkeleton v-if="$fetchState.pending"/>
     <p v-else-if="$fetchState.error">An error occurred :(</p>
     <div v-else>
-      <h1 class="text-gray-200 tracking-wide">{{ fullName }}</h1>
+      <h1 class="text-gray-200 tracking-wide mb-4">{{ repositoryTitle }}</h1>
       <button class="button--light w-56 my-4" @click="$fetch">Refresh</button>
       <VerticalCommitsTimeline :commits="commits" />
     </div>
@@ -30,6 +30,10 @@ export default Vue.extend({
   },
   computed: {
     ...mapWritableState(useCommitsStore, ['commits']),
+    repositoryTitle() {
+      const [profileName, repositoryName] = this.fullName.split('/')
+      return `Commits for repository '${repositoryName}' from user ${profileName}`
+    }
   },
   beforeMount() {
     window.addEventListener('scroll', this.checkScrollPosition)
