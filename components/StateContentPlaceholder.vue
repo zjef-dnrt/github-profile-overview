@@ -27,9 +27,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style scoped>
-img {
-  fill: white;
-}
-</style>
