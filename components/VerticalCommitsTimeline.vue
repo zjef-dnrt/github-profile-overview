@@ -1,5 +1,5 @@
 <template>
-  <ol class="relative ml-7 mt-7 border-l border-gray-200 dark:border-gray-700 transition-all duration-1000">
+  <transition-group name="commits-list" tag="ol" class="relative ml-7 mt-7 border-l border-gray-200 dark:border-gray-700 transition-all duration-1000">
     <li v-for="commitInfo in commits" :key="commitInfo.sha" class="mb-7 ml-4">
       <div
         class="
@@ -62,17 +62,17 @@
           ></path></svg
       ></a>
     </li>
-  </ol>
+  </transition-group>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import { Author, CommitInfo } from '~/types/commitInfo'
 
 export default Vue.extend({
   props: {
     commits: {
-      type: () => Object as unknown as CommitInfo[],
+      type: Array as PropType<CommitInfo[]>,
       required: true,
     },
   },
@@ -84,5 +84,19 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.commits-list-move,
+.commits-list-enter-active,
+.commits-list-leave-active {
+  transition: all 500ms ease;
+}
+.commits-list-enter-from,
+.commits-list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.commits-list-leave-active {
+  position: absolute;
+}
 </style>

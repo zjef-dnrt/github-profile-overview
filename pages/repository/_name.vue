@@ -1,11 +1,12 @@
 <template>
   <div class="my-4 glass-effect rounded-md px-5 py-8">
-    <CommitsSkeleton v-if="$fetchState.pending"/>
+    <CommitsSkeleton v-if="$fetchState.pending" />
     <p v-else-if="$fetchState.error">An error occurred :(</p>
     <div v-else>
       <h1 class="text-gray-200 tracking-wide mb-4">{{ repositoryTitle }}</h1>
+      <SearchBar v-model="searchValue" />
       <button class="button--light w-56 my-4" @click="$fetch">Refresh</button>
-      <VerticalCommitsTimeline :commits="commits" />
+      <VerticalCommitsTimeline :commits="filteredCommits" />
     </div>
   </div>
 </template>
@@ -14,14 +15,16 @@
 import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue-demi'
 import { useCommitsStore } from '~/store/commitsStore'
+import { CommitInfo } from '~/types/commitInfo'
 
 export default defineComponent({
-  asyncData({ params: { fullName } }) {
+  asyncData({ params: { fullName } }): { fullName: string } {
     return { fullName }
   },
   data() {
     return {
       pageNumber: 1,
+      searchValue: '',
     }
   },
   fetch() {
@@ -31,9 +34,24 @@ export default defineComponent({
   computed: {
     ...mapWritableState(useCommitsStore, ['commits']),
     repositoryTitle() {
-      const [profileName, repositoryName] = this.fullName.split('/')
+      const [profileName, repositoryName] = (
+        this.fullName ?? 'UNKNOWN/UNKNOWN'
+      ).split('/')
       return `Commits for repository '${repositoryName}' from user ${profileName}`
-    }
+    },
+    filteredCommits() {
+      return this.commits.filter(
+        (commitInfo: CommitInfo) =>
+          commitInfo.commit.author.name
+            .toLowerCase()
+            .includes(this.searchValue.toLowerCase()) ||
+          commitInfo.commit.message
+            .toLowerCase()
+            .includes(this.searchValue.toLowerCase()) ||
+          commitInfo.commit.committer.date.includes(this.searchValue) ||
+          commitInfo.sha.includes(this.searchValue)
+      )
+    },
   },
   beforeMount() {
     window.addEventListener('scroll', this.checkScrollPosition)

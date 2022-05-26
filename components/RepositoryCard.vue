@@ -60,14 +60,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import { Repository } from '@/types/repository'
 
 export default Vue.extend({
   name: 'RepositoryCard',
   props: {
     repo: {
-      type: Object as () => Repository,
+      type: Object as PropType<Repository>,
       default: null,
     },
   },
