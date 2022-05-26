@@ -1,11 +1,14 @@
 <template>
-  <div class="my-4 glass-effect rounded-md px-5 py-8">
+  <div class="mt-2 mb-4 glass-effect rounded-md px-5 py-8">
     <CommitsSkeleton v-if="$fetchState.pending" />
     <p v-else-if="$fetchState.error">An error occurred :(</p>
     <div v-else>
       <h1 class="text-gray-200 tracking-wide mb-4">{{ repositoryTitle }}</h1>
-      <SearchInput v-model="searchValue" />
-      <button class="button--light w-56 my-4" @click="$fetch">Refresh</button>
+      <div class="flex flex-col">
+        <SearchInput v-model="searchValue" class="w-96" />
+        <button class="button--light w-56 my-4" @click="$fetch">Refresh</button>
+      </div>
+
       <VerticalCommitsTimeline :commits="filteredCommits" />
     </div>
   </div>
@@ -20,7 +23,7 @@ import { CommitInfo } from '~/types/commitInfo'
 
 export default defineComponent({
   asyncData({ params: { fullName }, $pinia }): { fullName: string } {
-    const repoStore = useReposStore($pinia);
+    const repoStore = useReposStore($pinia)
     repoStore.setSelectedRepoName(fullName)
   },
   data() {
@@ -52,7 +55,9 @@ export default defineComponent({
           commitInfo.commit.message
             .toLowerCase()
             .includes(uppercaseSearchValue) ||
-          (commitInfo.commit.committer.date as unknown as string).includes(uppercaseSearchValue) ||
+          (commitInfo.commit.committer.date as unknown as string).includes(
+            uppercaseSearchValue
+          ) ||
           commitInfo.sha.includes(uppercaseSearchValue)
       )
     },
@@ -69,12 +74,15 @@ export default defineComponent({
       this.fetchCommits(this.pageNumber)
     },
     async fetchCommits(page: Number = 1): Promise<void> {
-      const { data } = await this.$reposAPI.get(`${this.selectedRepoName}/commits`, {
-        params: {
-          per_page: 20,
-          page,
-        },
-      })
+      const { data } = await this.$reposAPI.get(
+        `${this.selectedRepoName}/commits`,
+        {
+          params: {
+            per_page: 20,
+            page,
+          },
+        }
+      )
 
       if (page === 1) this.commits = data
       else this.commits.push(...data)
