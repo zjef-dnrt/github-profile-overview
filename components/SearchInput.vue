@@ -37,9 +37,10 @@
         type="search"
         class="
           block
-          p-4
+          p-2
           pl-10
           w-full
+          h-10
           text-sm text-gray-900
           bg-gray-50
           rounded-lg
