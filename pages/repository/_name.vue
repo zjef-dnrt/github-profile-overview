@@ -4,7 +4,7 @@
     <p v-else-if="$fetchState.error">An error occurred :(</p>
     <div v-else>
       <h1 class="text-gray-200 tracking-wide mb-4">{{ repositoryTitle }}</h1>
-      <SearchBar v-model="searchValue" />
+      <SearchInput v-model="searchValue" />
       <button class="button--light w-56 my-4" @click="$fetch">Refresh</button>
       <VerticalCommitsTimeline :commits="filteredCommits" />
     </div>
@@ -12,13 +12,17 @@
 </template>
 
 <script lang="ts">
-import { mapWritableState } from 'pinia'
+import { mapState, mapWritableState } from 'pinia'
 import { defineComponent } from 'vue-demi'
 import { useCommitsStore } from '~/store/commitsStore'
+import { useReposStore } from '~/store/repositoriesStore'
 import { CommitInfo } from '~/types/commitInfo'
 
 export default defineComponent({
-  asyncData({ params: { fullName } }): { fullName: string } {
+  asyncData({ params: { fullName }, $pinia }): { fullName: string } {
+    const repoStore = useReposStore($pinia);
+    repoStore.setSelectedRepoName(fullName)
+
     return { fullName }
   },
   data() {
@@ -32,24 +36,26 @@ export default defineComponent({
     this.pageNumber = 1
   },
   computed: {
+    ...mapState(useReposStore, ['selectedRepoName']),
     ...mapWritableState(useCommitsStore, ['commits']),
     repositoryTitle() {
-      const [profileName, repositoryName] = (
-        this.fullName ?? 'UNKNOWN/UNKNOWN'
-      ).split('/')
+      if (!process.client) return ''
+      const [profileName, repositoryName] = (this.fullName ?? this.selectedRepoName).split('/')
       return `Commits for repository '${repositoryName}' from user ${profileName}`
     },
     filteredCommits() {
+      const uppercaseSearchValue = this.searchValue.toLowerCase() as string
+
       return this.commits.filter(
         (commitInfo: CommitInfo) =>
           commitInfo.commit.author.name
             .toLowerCase()
-            .includes(this.searchValue.toLowerCase()) ||
+            .includes(uppercaseSearchValue) ||
           commitInfo.commit.message
             .toLowerCase()
-            .includes(this.searchValue.toLowerCase()) ||
-          commitInfo.commit.committer.date.includes(this.searchValue) ||
-          commitInfo.sha.includes(this.searchValue)
+            .includes(uppercaseSearchValue) ||
+          (commitInfo.commit.committer.date as unknown as string).includes(uppercaseSearchValue) ||
+          commitInfo.sha.includes(uppercaseSearchValue)
       )
     },
   },

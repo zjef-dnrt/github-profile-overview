@@ -26,7 +26,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapActions, mapState } from 'pinia'
-import { useRepos } from '~/store/repositoriesStore'
+import { useReposStore } from '~/store/repositoriesStore'
 import LoadingButton from "~/components/LoadingButton.vue"
 
 export default Vue.extend({
@@ -40,14 +40,14 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState(useRepos, ['isLoading']),
+    ...mapState(useReposStore, ['isLoading']),
   },
   mounted() {
     const focusInput = this.$refs.focusInput as HTMLElement | null;
     focusInput?.focus()
   },
   methods: {
-    ...mapActions(useRepos, ['fetchRepos']),
+    ...mapActions(useReposStore, ['fetchRepos']),
   },
 })
 </script>

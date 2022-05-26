@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { Repository } from '~/types/repository'
 
-export const useRepos = defineStore('repos', {
+export const useReposStore = defineStore('repos', {
   state: () => ({
     repositories: [] as Repository[],
+    selectedRepoName: '' as String,
     errorMessage: '' as String,
     isLoading: false as Boolean,
     repositoriesLoaded: false as Boolean,
@@ -15,7 +16,7 @@ export const useRepos = defineStore('repos', {
   },
 
   actions: {
-    async fetchRepos(profileName: string) {
+    async fetchRepos(profileName: string): Promise<void> {
       this.isLoading = true
       this.repositoriesLoaded = false
       this.errorMessage = ''
@@ -35,6 +36,9 @@ export const useRepos = defineStore('repos', {
       } finally {
         this.isLoading = false
       }
+    },
+    setSelectedRepoName(newSelectedRepoName: String): void {
+      this.selectedRepoName = newSelectedRepoName
     },
   },
 })

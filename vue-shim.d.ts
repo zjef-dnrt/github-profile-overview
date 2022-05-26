@@ -2,6 +2,7 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import Vue from 'vue'
 import { CommitInfo } from './types/commitInfo'
+import { Repository } from './types/repository'
 
 declare module '*.vue' {
   export default Vue
@@ -21,6 +22,10 @@ declare module 'vue/types/vue' {
     fullName: string
     commits: CommitInfo[]
     modelValue: string
+    repo: Repository
+    repositories: Repository[]
+    selectedRepoName: string
+    setSelectedRepository: () => void
   }
 }
 

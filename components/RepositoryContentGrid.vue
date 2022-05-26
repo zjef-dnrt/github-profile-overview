@@ -56,7 +56,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'pinia'
-import { useRepos } from '~/store/repositoriesStore'
+import { useReposStore } from '~/store/repositoriesStore'
 import RepositoryCardSkeleton from '~/components/RepositoryCardSkeleton.vue'
 
 export default Vue.extend({
@@ -68,7 +68,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState(useRepos, [
+    ...mapState(useReposStore, [
       'repositories',
       'errorMessage',
       'repositoriesLoaded',
