@@ -22,8 +22,6 @@ export default defineComponent({
   asyncData({ params: { fullName }, $pinia }): { fullName: string } {
     const repoStore = useReposStore($pinia);
     repoStore.setSelectedRepoName(fullName)
-
-    return { fullName }
   },
   data() {
     return {
@@ -40,7 +38,7 @@ export default defineComponent({
     ...mapWritableState(useCommitsStore, ['commits']),
     repositoryTitle() {
       if (!process.client) return ''
-      const [profileName, repositoryName] = (this.fullName ?? this.selectedRepoName).split('/')
+      const [profileName, repositoryName] = this.selectedRepoName.split('/')
       return `Commits for repository '${repositoryName}' from user ${profileName}`
     },
     filteredCommits() {
@@ -71,7 +69,7 @@ export default defineComponent({
       this.fetchCommits(this.pageNumber)
     },
     async fetchCommits(page: Number = 1): Promise<void> {
-      const { data } = await this.$reposAPI.get(`${this.fullName}/commits`, {
+      const { data } = await this.$reposAPI.get(`${this.selectedRepoName}/commits`, {
         params: {
           per_page: 20,
           page,
