@@ -13,6 +13,7 @@
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
+    "jsx": "react-native",
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
