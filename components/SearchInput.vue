@@ -72,6 +72,5 @@ export default Vue.extend({
       default: '',
     },
   },
-  emits: ['input']
 })
 </script>

@@ -8,23 +8,20 @@
         <SearchInput v-model="searchValue" class="w-96" />
         <button class="button--light w-56 my-4" @click="$fetch">Refresh</button>
       </div>
-
       <VerticalCommitsTimeline :commits="filteredCommits" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { mapState, mapWritableState } from 'pinia'
+import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue-demi'
 import { useCommitsStore } from '~/store/commitsStore'
-import { useReposStore } from '~/store/repositoriesStore'
 import { CommitInfo } from '~/types/commitInfo'
 
 export default defineComponent({
-  asyncData({ params: { fullName }, $pinia }): { fullName: string } {
-    const repoStore = useReposStore($pinia)
-    repoStore.setSelectedRepoName(fullName)
+  asyncData({ params: { name } }) {
+    return { name }
   },
   data() {
     return {
@@ -32,16 +29,14 @@ export default defineComponent({
       searchValue: '',
     }
   },
-  fetch() {
-    this.fetchCommits()
+  async fetch() {
+    await this.fetchCommits()
     this.pageNumber = 1
   },
   computed: {
-    ...mapState(useReposStore, ['selectedRepoName']),
     ...mapWritableState(useCommitsStore, ['commits']),
     repositoryTitle() {
-      if (!process.client) return ''
-      const [profileName, repositoryName] = this.selectedRepoName.split('/')
+      const [profileName, repositoryName] = (this.name ?? '-/-').split('/')
       return `Commits for repository '${repositoryName}' from user ${profileName}`
     },
     filteredCommits() {
@@ -74,15 +69,12 @@ export default defineComponent({
       this.fetchCommits(this.pageNumber)
     },
     async fetchCommits(page: Number = 1): Promise<void> {
-      const { data } = await this.$reposAPI.get(
-        `${this.selectedRepoName}/commits`,
-        {
-          params: {
-            per_page: 20,
-            page,
-          },
-        }
-      )
+      const { data } = await this.$reposAPI.get(`${this.name}/commits`, {
+        params: {
+          per_page: 20,
+          page,
+        },
+      })
 
       if (page === 1) this.commits = data
       else this.commits.push(...data)
@@ -95,7 +87,8 @@ export default defineComponent({
       // Total scrollable document height
       const scrollHeight = document.documentElement.scrollHeight
 
-      if (scrollY + innerHeight >= scrollHeight) this.fetchMoreCommits()
+      if (scrollY > 0 && scrollY + innerHeight >= scrollHeight)
+        this.fetchMoreCommits()
     },
   },
 })

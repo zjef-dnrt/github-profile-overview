@@ -19,12 +19,11 @@ declare module 'vue/types/vue' {
   interface Vue {
     $usersAPI: NuxtAxiosInstance
     $reposAPI: NuxtAxiosInstance
-    fullName: string
+    name: string
     commits: CommitInfo[]
     modelValue: string
     repo: Repository
     repositories: Repository[]
-    selectedRepoName: string
     setSelectedRepository: () => void
   }
 }

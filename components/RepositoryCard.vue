@@ -15,7 +15,7 @@
       transform
       hover:shadow-lg hover:-translate-y-1 hover-container
     "
-    :to="{ name: 'repository-name', params: { name: repo.name, fullName: repo.full_name } }"
+    :to="{ name: 'repository-name', params: { name: repo.full_name } }"
   >
     <img
       v-if="repo.fork"
