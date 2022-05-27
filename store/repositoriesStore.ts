@@ -1,24 +1,17 @@
 import { defineStore } from 'pinia'
 import { Repository } from '~/types/repository'
 
-type RepositoryStoreType = {
-  repositories: Repository[]
-  errorMessage: string
-  isLoading: boolean
-  repositoriesLoaded: boolean
-}
-
 export const useReposStore = defineStore('repos', {
   state: () =>
     ({
-      repositories: [],
+      repositories: [] as Repository[],
       errorMessage: '',
       isLoading: false,
       repositoriesLoaded: false,
-    } as RepositoryStoreType),
+    }),
 
   getters: {
-    hasRepositories: (state: RepositoryStoreType) =>
+    hasRepositories: (state) =>
       state.repositoriesLoaded && state.repositories.length > 0,
   },
 
