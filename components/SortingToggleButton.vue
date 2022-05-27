@@ -29,7 +29,9 @@
     <img
       v-if="sortState !== 0"
       :src="sortDirArrow"
-      class="w-5 mr-4"
+      class="mr-4"
+      width="16"
+      height="16"
       alt="Sorting direction arrow"
     />
     {{ content }}

@@ -19,9 +19,11 @@
       >
       <div class="mt-2 mb-3 flex items-center">
         <img
-          class="mr-3 w-12 h-12 rounded-full"
+          class="mr-3 rounded-full"
           :src="getAvatarUrl(commitInfo.author)"
           alt="Github profile avatar"
+          width="48"
+          height="48"
         />
         <h3 class="text-lg font-semibold text-gray-700">
           {{ commitInfo.commit.author.name }}

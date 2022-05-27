@@ -24,6 +24,8 @@
       src="../assets/git-fork.svg"
       alt="Fork icon"
       title="Forked repository"
+      width="24"
+      height="24"
     />
     <StarsDisplay :stars="repo.stargazers_count" />
     <img
