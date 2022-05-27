@@ -1,6 +1,8 @@
 # Github profile overview 
 _Dit project is in opdracht van Appeel.io_
 
+Bekijk de publieke Github repositories en bijhorende commits van een profiel. 
+
 ## Netifly Site
 De applicatie wordt gehost op Netifly,
 
