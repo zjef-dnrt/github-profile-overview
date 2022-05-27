@@ -1,6 +1,6 @@
 <template>
   <div id="repo-stars" :data-stars="stars">
-    <img src="../assets/star.svg" alt="Star" />
+    <img src="../assets/star.svg" alt="Star" width="16" height="16" />
   </div>
 </template>
 
@@ -27,7 +27,6 @@ export default Vue.extend({
   right: 1rem;
 
   & img {
-    width: 1rem;
     display: inline-block;
   }
 
