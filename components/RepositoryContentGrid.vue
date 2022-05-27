@@ -22,13 +22,13 @@
           @click="(dir) => onSortingClicked(dir, 'stargazers_count')"
         />
       </div>
-      <div class="main-repos-grid">
+      <transition-group class="main-repos-grid">
         <RepositoryCard
-          v-for="repo in repositoriesDatasource"
+          v-for="repo in (repositoriesDatasource || repositories)"
           :key="repo.id"
           :repo="repo"
         />
-      </div>
+      </transition-group>
     </div>
 
     <!-- [STATE] Repos fetched successfull, user has no repos -->
