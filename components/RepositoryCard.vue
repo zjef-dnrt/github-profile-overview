@@ -5,6 +5,7 @@
       h-96
       max-h-96
       flex flex-col
+      items-center
       justify-between
       cursor-pointer
       transition-all
@@ -26,11 +27,11 @@
     />
     <StarsDisplay :stars="repo.stargazers_count" />
     <img
-      class="rounded-t-lg transition-all duration-300"
+      class="flex-1 rounded-t-lg transition-all duration-300"
       src="../assets/github-repo-logo.svg"
       alt="Github repository logo"
     />
-    <div class="p-6 flex flex-col">
+    <div class="w-full p-6 flex flex-col">
       <h5 class="text-gray-900 text-xl font-medium mb-2">{{ repo.name }}</h5>
       <p class="mb-2 text-sm text-gray-600 appear-upward overflow-hidden">
         {{ repo.description }}
