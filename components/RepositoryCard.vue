@@ -5,6 +5,7 @@
       h-96
       max-h-96
       flex flex-col
+      items-center
       justify-between
       cursor-pointer
       transition-all
@@ -13,23 +14,24 @@
       shadow-sm
       bg-white
       transform
-      hover:shadow-lg
-      hover:-translate-y-1
-      hover-container
+      hover:shadow-lg hover:-translate-y-1 hover-container
     "
-    :to="{
-      name: 'repository-name',
-      params: { name: repo.name, fullName: repo.full_name },
-    }"
+    :to="{ name: 'repository-name', params: { name: repo.full_name } }"
   >
-    <img v-if="repo.fork" id="fork" src="../assets/git-fork.svg" alt="Fork icon" title="Forked repository">
+    <img
+      v-if="repo.fork"
+      id="fork"
+      src="../assets/git-fork.svg"
+      alt="Fork icon"
+      title="Forked repository"
+    />
     <StarsDisplay :stars="repo.stargazers_count" />
     <img
-      class="rounded-t-lg transition-all duration-300"
+      class="flex-1 rounded-t-lg transition-all duration-300"
       src="../assets/github-repo-logo.svg"
       alt="Github repository logo"
     />
-    <div class="p-6 flex flex-col">
+    <div class="w-full p-6 flex flex-col">
       <h5 class="text-gray-900 text-xl font-medium mb-2">{{ repo.name }}</h5>
       <p class="mb-2 text-sm text-gray-600 appear-upward overflow-hidden">
         {{ repo.description }}
@@ -60,14 +62,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Repository } from '@/types/repository'
+import Vue, { PropType } from 'vue'
+import { Repository } from '~/types/repository'
 
 export default Vue.extend({
   name: 'RepositoryCard',
   props: {
     repo: {
-      type: Object as () => Repository,
+      type: Object as PropType<Repository>,
       default: null,
     },
   },

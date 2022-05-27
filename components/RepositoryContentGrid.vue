@@ -12,13 +12,23 @@
       <h2 v-if="repoOwnerName" class="mb-7 text-gray-200">
         {{ repoOwnerName }}
       </h2>
-      <div class="main-repos-grid">
+      <div class="flex mb-4">
+        <SortingToggleButton
+          content="Name"
+          @click="(dir) => onSortingClicked(dir, 'name')"
+        />
+        <SortingToggleButton
+          content="Stars"
+          @click="(dir) => onSortingClicked(dir, 'stargazers_count')"
+        />
+      </div>
+      <transition-group class="main-repos-grid">
         <RepositoryCard
-          v-for="repo in repositories"
+          v-for="repo in (repositoriesDatasource || repositories)"
           :key="repo.id"
           :repo="repo"
         />
-      </div>
+      </transition-group>
     </div>
 
     <!-- [STATE] Repos fetched successfull, user has no repos -->
@@ -56,8 +66,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'pinia'
-import { useRepos } from '~/store/repositoriesStore'
+import { SORT_DIRECTION } from './SortingToggleButton.vue'
+import { useReposStore } from '~/store/repositoriesStore'
 import RepositoryCardSkeleton from '~/components/RepositoryCardSkeleton.vue'
+import { Repository } from '~/types/repository'
 
 export default Vue.extend({
   components: { RepositoryCardSkeleton },
@@ -65,10 +77,11 @@ export default Vue.extend({
     return {
       initialMessage:
         'Enter a Github profile name above and request the repositories',
+      repositoriesDatasource: [] as Repository[],
     }
   },
   computed: {
-    ...mapState(useRepos, [
+    ...mapState(useReposStore, [
       'repositories',
       'errorMessage',
       'repositoriesLoaded',
@@ -80,8 +93,32 @@ export default Vue.extend({
       return ownerName ? `${ownerName}'s repositories` : ''
     },
   },
+  watch: {
+    repositories: {
+      deep: true,
+      handler(newValue, oldValue) {
+        if (newValue === oldValue) return
+        this.repositoriesDatasource = newValue.slice()
+      },
+    },
+  },
+  methods: {
+    onSortingClicked(sortDirection: SORT_DIRECTION, property: string) {
+      if (sortDirection === SORT_DIRECTION.OFF)
+        this.repositoriesDatasource = this.repositories.slice()
+      else {
+        this.repositoriesDatasource = this.repositories.slice().sort((a, b) => {
+          const aDynamicProp = `${a[property]}`.toLowerCase()
+          const bDynamicProp = `${b[property]}`.toLowerCase()
+
+          if (sortDirection === SORT_DIRECTION.ASC) {
+            return aDynamicProp > bDynamicProp ? 1 : -1
+          } else {
+            return aDynamicProp < bDynamicProp ? 1 : -1
+          }
+        })
+      }
+    },
+  },
 })
 </script>
-
-<style scoped>
-</style>

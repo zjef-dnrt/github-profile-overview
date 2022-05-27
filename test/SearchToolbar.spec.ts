@@ -5,7 +5,7 @@ import { createTestingPinia } from '@pinia/testing'
 import SearchToolbar from '~/components/SearchToolbar'
 // @ts-ignore
 import LoadingButton from "~/components/LoadingButton"
-import { useRepos } from '~/store/repositoriesStore'
+import { useReposStore } from '~/store/repositoriesStore'
 
 const localVue = createLocalVue()
 localVue.use(PiniaVuePlugin)
@@ -19,7 +19,7 @@ const wrapper = mount(SearchToolbar, {
   pinia: createTestingPinia({ stubActions: false })
 })
 
-const repositoriesStore = useRepos()
+const repositoriesStore = useReposStore()
 
 describe('SearchToolbar', () => {
   test('Profile name input focus on mount', () => {

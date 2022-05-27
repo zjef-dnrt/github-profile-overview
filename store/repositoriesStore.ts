@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia'
 import { Repository } from '~/types/repository'
 
-export const useRepos = defineStore('repos', {
-  state: () => ({
-    repositories: [] as Repository[],
-    errorMessage: '' as String,
-    isLoading: false as Boolean,
-    repositoriesLoaded: false as Boolean,
-  }),
+export const useReposStore = defineStore('repos', {
+  state: () =>
+    ({
+      repositories: [] as Repository[],
+      errorMessage: '',
+      isLoading: false,
+      repositoriesLoaded: false,
+    }),
 
   getters: {
     hasRepositories: (state) =>
@@ -15,7 +16,7 @@ export const useRepos = defineStore('repos', {
   },
 
   actions: {
-    async fetchRepos(profileName: string) {
+    async fetchRepos(profileName: string): Promise<void> {
       this.isLoading = true
       this.repositoriesLoaded = false
       this.errorMessage = ''
