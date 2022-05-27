@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { Repository } from '@/types/repository'
+import { Repository } from '~/types/repository'
 
 export default Vue.extend({
   name: 'RepositoryCard',
