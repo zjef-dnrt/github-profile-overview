@@ -108,8 +108,8 @@ export default Vue.extend({
         this.repositoriesDatasource = this.repositories.slice()
       else {
         this.repositoriesDatasource = this.repositories.slice().sort((a, b) => {
-          const aDynamicProp = a[property]
-          const bDynamicProp = b[property]
+          const aDynamicProp = `${a[property]}`.toLowerCase()
+          const bDynamicProp = `${b[property]}`.toLowerCase()
 
           if (sortDirection === SORT_DIRECTION.ASC) {
             return aDynamicProp > bDynamicProp ? 1 : -1
