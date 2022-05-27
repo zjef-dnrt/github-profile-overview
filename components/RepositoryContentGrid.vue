@@ -105,11 +105,12 @@ export default Vue.extend({
   methods: {
     onSortingClicked(sortDirection: SORT_DIRECTION, property: string) {
       if (sortDirection === SORT_DIRECTION.OFF)
-        this.repositoriesDatasource = this.repositories.slice()
+        this.repositoriesDatasource = (this.repositories.slice() as Repository[])
       else {
-        this.repositoriesDatasource = this.repositories.slice().sort((a, b) => {
-          const aDynamicProp = `${a[property]}`.toLowerCase()
-          const bDynamicProp = `${b[property]}`.toLowerCase()
+        this.repositoriesDatasource = (this.repositories as Repository[]).slice().sort((a, b) => {
+          const typedPropertyName = property as keyof Repository
+          const aDynamicProp = a[typedPropertyName].toString().toLowerCase()
+          const bDynamicProp = b[typedPropertyName].toString().toLowerCase()
 
           if (sortDirection === SORT_DIRECTION.ASC) {
             return aDynamicProp > bDynamicProp ? 1 : -1
