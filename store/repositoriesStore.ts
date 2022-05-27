@@ -1,17 +1,24 @@
 import { defineStore } from 'pinia'
 import { Repository } from '~/types/repository'
 
+type RepositoryStoreType = {
+  repositories: Repository[]
+  errorMessage: string
+  isLoading: boolean
+  repositoriesLoaded: boolean
+}
+
 export const useReposStore = defineStore('repos', {
-  state: () => ({
-    repositories: [] as Repository[],
-    selectedRepoName: '' as String,
-    errorMessage: '' as String,
-    isLoading: false as Boolean,
-    repositoriesLoaded: false as Boolean,
-  }),
+  state: () =>
+    ({
+      repositories: [],
+      errorMessage: '',
+      isLoading: false,
+      repositoriesLoaded: false,
+    } as RepositoryStoreType),
 
   getters: {
-    hasRepositories: (state) =>
+    hasRepositories: (state: RepositoryStoreType) =>
       state.repositoriesLoaded && state.repositories.length > 0,
   },
 
@@ -36,9 +43,6 @@ export const useReposStore = defineStore('repos', {
       } finally {
         this.isLoading = false
       }
-    },
-    setSelectedRepoName(newSelectedRepoName: String): void {
-      this.selectedRepoName = newSelectedRepoName
     },
   },
 })
