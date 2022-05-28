@@ -3,10 +3,10 @@ _Dit project is in opdracht van Appeel.io_
 
 Bekijk de publieke Github repositories en bijhorende commits van een profiel. 
 
-## Netifly Site
-De applicatie wordt gehost op Netifly,
+## Heroku app Site
+De applicatie wordt gehost op Heroku (SSR enabled),
 
-[Bekijk het project hier](https://git-profile-overview.netlify.app/)
+[Bekijk het project hier](https://github-profile-overview.herokuapp.com/)
 
 
 ## Nuxt Build Instructions
