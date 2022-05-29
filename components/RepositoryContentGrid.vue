@@ -24,7 +24,7 @@
       </div>
       <transition-group class="main-repos-grid">
         <RepositoryCard
-          v-for="repo in (repositoriesDatasource || repositories)"
+          v-for="repo in repositoriesDatasource || repositories"
           :key="repo.id"
           :repo="repo"
         />
@@ -80,6 +80,7 @@ export default Vue.extend({
       repositoriesDatasource: [] as Repository[],
     }
   },
+
   computed: {
     ...mapState(useReposStore, [
       'repositories',
@@ -102,22 +103,27 @@ export default Vue.extend({
       },
     },
   },
+  mounted() {
+    this.repositoriesDatasource = this.repositories
+  },
   methods: {
     onSortingClicked(sortDirection: SORT_DIRECTION, property: string) {
       if (sortDirection === SORT_DIRECTION.OFF)
-        this.repositoriesDatasource = (this.repositories.slice() as Repository[])
+        this.repositoriesDatasource = this.repositories.slice() as Repository[]
       else {
-        this.repositoriesDatasource = (this.repositories as Repository[]).slice().sort((a, b) => {
-          const typedPropertyName = property as keyof Repository
-          const aDynamicProp = a[typedPropertyName].toString().toLowerCase()
-          const bDynamicProp = b[typedPropertyName].toString().toLowerCase()
+        this.repositoriesDatasource = (this.repositories as Repository[])
+          .slice()
+          .sort((a, b) => {
+            const typedPropertyName = property as keyof Repository
+            const aDynamicProp = a[typedPropertyName].toString().toLowerCase()
+            const bDynamicProp = b[typedPropertyName].toString().toLowerCase()
 
-          if (sortDirection === SORT_DIRECTION.ASC) {
-            return aDynamicProp > bDynamicProp ? 1 : -1
-          } else {
-            return aDynamicProp < bDynamicProp ? 1 : -1
-          }
-        })
+            if (sortDirection === SORT_DIRECTION.ASC) {
+              return aDynamicProp > bDynamicProp ? 1 : -1
+            } else {
+              return aDynamicProp < bDynamicProp ? 1 : -1
+            }
+          })
       }
     },
   },
