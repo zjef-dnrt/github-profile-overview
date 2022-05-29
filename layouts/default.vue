@@ -9,7 +9,7 @@
       </h1>
     </NuxtLink>
     <main class="h-full pb-8 laptop:w-10/12 desktop:w-8/12 laptop:mx-auto">
-      <Nuxt />
+      <transition name="slide-right"><Nuxt /></transition>
     </main>
   </div>
 </template>
@@ -31,5 +31,15 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: opacity 0.35s ease-in-out, transform 0.4s ease-in-out;
+}
+.slide-right-enter,
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translate3d(20px, 0, 0);
 }
 </style>
